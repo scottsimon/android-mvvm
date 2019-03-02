@@ -16,15 +16,18 @@ class ProductListViewModel(
   private val messageFactory: MessageFactory
 ) : ViewModel(R.layout.product_list_view_model) {
 
+  private val allProductViewModels: List<ProductSummaryViewModel> = createSummaryViewModels()
+
   @get:Bindable
   var title: String? by bindable(BR.title, null)
 
   @get:Bindable
-  var filterText: String? by bindable(BR.filterText, "")
+  var filterText: String? by bindable(BR.filterText, "", this::onFilterTextChanged)
 
   val cartViewModel = TinyCartViewModel(cart).apply { onClickedHandler = { showCart() } }
 
-  val productViewModels: List<ProductSummaryViewModel> = createSummaryViewModels()
+  @get:Bindable
+  var productViewModels: List<ProductSummaryViewModel> by bindable(BR.productViewModels, allProductViewModels)
 
   private fun showCart() {
     messageFactory.showTransientMessage("Cart has ${cart.items.size} items")
@@ -63,6 +66,23 @@ class ProductListViewModel(
   }
 
   //endregion
+
+  //region Filtering
+
+  private fun onFilterTextChanged(oldValue: String?, newValue: String?) {
+    productViewModels = filterProducts(newValue)
+  }
+
+  private fun filterProducts(filter: String?): List<ProductSummaryViewModel> {
+    val text = filter ?: return allProductViewModels
+
+    return allProductViewModels.filter { productSummaryViewModel ->
+      productSummaryViewModel.description.contains(text, true)
+    }
+  }
+
+  //endregion
+
 
 }
 
