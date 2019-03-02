@@ -15,7 +15,8 @@ class MainActivityState : ViewModel() {
 
   var productsViewModel: ProductListViewModel? = null
 
-  val isInitialized: Boolean = cart != null
+  val isInitialized: Boolean
+      get() = cart != null
 
   fun initialize(store: Store, cart: Cart, productsViewModel: ProductListViewModel) {
     this.cart = cart
