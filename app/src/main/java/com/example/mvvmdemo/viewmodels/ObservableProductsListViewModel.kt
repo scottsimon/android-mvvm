@@ -5,6 +5,9 @@ import android.databinding.Bindable
 import com.example.mvvmdemo.BR
 import com.example.mvvmdemo.misc.logDebug
 
+/**
+ * View-model class with observable properties for data binding.
+ */
 class ObservableProductsListViewModel: BaseObservable() {
 
   @Bindable

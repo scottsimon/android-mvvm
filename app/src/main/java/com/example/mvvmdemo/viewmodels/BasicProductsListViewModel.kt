@@ -2,6 +2,9 @@ package com.example.mvvmdemo.viewmodels
 
 import com.example.mvvmdemo.misc.logDebug
 
+/**
+ * View-model class with properties for basic data binding.
+ */
 class BasicProductsListViewModel {
 
   var title: String? = null

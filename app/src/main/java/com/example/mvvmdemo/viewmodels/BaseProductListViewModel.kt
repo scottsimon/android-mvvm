@@ -7,6 +7,12 @@ import com.example.mvvmdemo.misc.logDebug
 import com.example.mvvmdemo.mvvm.ViewModel
 import com.example.mvvmdemo.mvvm.bindable
 
+/**
+ * View-model class that inherits from our [ViewModel] base class.
+ *
+ * - Simplify boiler-plate to create/bind view via BindingAdapters.createView()
+ * - Simplify boiler-plate code for observable properies with 'by bindable' ([BindableProperty])
+ */
 class BaseProductListViewModel : ViewModel(R.layout.base_product_list_view_model) {
 
   @get:Bindable
