@@ -3,6 +3,7 @@ package com.example.mvvmdemo.viewmodels
 import android.databinding.Bindable
 import com.example.mvvmdemo.BR
 import com.example.mvvmdemo.R
+import com.example.mvvmdemo.messaging.MessageFactory
 import com.example.mvvmdemo.misc.logDebug
 import com.example.mvvmdemo.models.Cart
 import com.example.mvvmdemo.models.Product
@@ -71,7 +72,11 @@ import com.example.mvvmdemo.mvvm.bindable
 
 // Phase 4: binding adapters & ViewModel base class
 //
-class ProductListViewModel(private val store: Store, private val cart: Cart) : ViewModel(R.layout.product_list_view_model) {
+class ProductListViewModel(
+  private val store: Store,
+  private val cart: Cart,
+  private val messageFactory: MessageFactory
+) : ViewModel(R.layout.product_list_view_model) {
 
   @get:Bindable
   var title: String? by bindable(BR.title, null)
@@ -116,8 +121,9 @@ class ProductListViewModel(private val store: Store, private val cart: Cart) : V
   }
 
   private fun addProductToCart(product: Product) {
-    logDebug("addProductToCart: ${product.name}")
     cart.addItem(product)
+
+    messageFactory.showTransientMessage("${product.name} added to cart")
   }
 
   //endregion

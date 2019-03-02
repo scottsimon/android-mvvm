@@ -1,12 +1,15 @@
 package com.example.mvvmdemo
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.example.mvvmdemo.databinding.ProductListViewModelBinding
+import com.example.mvvmdemo.messaging.MessageFactory
+import com.example.mvvmdemo.messaging.MessageFactoryImpl
 import com.example.mvvmdemo.models.Cart
 import com.example.mvvmdemo.models.Store
 import com.example.mvvmdemo.mvvm.createView
@@ -58,16 +61,52 @@ class MainActivity : AppCompatActivity() {
     //
     val mainActivityState = ViewModelProviders.of(this).get(MainActivityState::class.java)
 
-    // If this is the first time the state was created, create our intial state/data/view-model
     if (!mainActivityState.isInitialized) {
-      val store = Store()
-      val cart = Cart()
-      val productListViewModel = ProductListViewModel(store, cart).apply { title = "My Products" }
-      mainActivityState.initialize(store, cart, productListViewModel)
+      // If this is the first time the state was created, create our intial state/data/view-model
+      initActivityState(mainActivityState)
+    } else {
+      updateActivityState(mainActivityState)
     }
 
     return mainActivityState
   }
 
+  private val contextProvider: () -> Context? = { this }
+
+  private fun initActivityState(state: MainActivityState) {
+    val store = Store()
+    val cart = Cart()
+    val messageFactory = createMessageFactory()
+    val productListViewModel = createProductListViewModel(store, cart, messageFactory)
+    state.initialize(store, cart, productListViewModel)
+  }
+
+  private fun createProductListViewModel(
+    store: Store,
+    cart: Cart,
+    messageFactory: MessageFactoryImpl
+  ): ProductListViewModel = ProductListViewModel(store, cart, messageFactory).apply {
+    title = "My Products"
+  }
+
+  //region Message factory
+
+  private fun createMessageFactory(): MessageFactoryImpl {
+    return MessageFactoryImpl().apply {
+      updateMessageFactory(this)
+    }
+  }
+
+  private fun updateActivityState(state: MainActivityState) {
+    state.messageFactory?.let {
+      updateMessageFactory(it)
+    }
+  }
+
+  private fun updateMessageFactory(messageFactoryImpl: MessageFactoryImpl) {
+    messageFactoryImpl.contextProvider = contextProvider
+  }
+
+  //endregion Message factory
 
 }
