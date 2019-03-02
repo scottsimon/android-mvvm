@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.example.mvvmdemo.databinding.ProductListViewModelBinding
+import com.example.mvvmdemo.mvvm.createView
 import com.example.mvvmdemo.viewmodels.ProductListViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -19,24 +20,29 @@ class MainActivity : AppCompatActivity() {
     // get the FrameLayout that will hold/contain our (view-model) content
     val contentFrame = findViewById<FrameLayout>(R.id.content_frame)
 
-    // Step 1. Android ViewModel architecture component
+    // Phase 1. Android ViewModel architecture component
+    //
     val state = getState()
-
-    // Step 2. Simple data binding example
     val productsViewModel = state.productsViewModel
 
-    val binding = DataBindingUtil.inflate<ProductListViewModelBinding>(
-      LayoutInflater.from(this),
-      R.layout.product_list_view_model,
-      contentFrame,
-      false
-    )
-    binding.setVariable(BR.viewModel, productsViewModel)
-    binding.executePendingBindings()
+    // Phase 2. Simple data binding example
+    //
+//    val binding = DataBindingUtil.inflate<ProductListViewModelBinding>(
+//      LayoutInflater.from(this),
+//      R.layout.product_list_view_model,
+//      contentFrame,
+//      false
+//    )
+//    binding.setVariable(BR.viewModel, productsViewModel)
+//    binding.executePendingBindings()
+//
+//    contentFrame.addView(binding.root)
 
-    contentFrame.addView(binding.root)
+    // Phase 3. Binding adapters & ViewModel base class
+    //
+    createView(contentFrame, productsViewModel)
 
-    // Step 3. Use binding adapter
+    // Phase 4.
   }
 
   private fun getState(): MainActivityState {
@@ -55,5 +61,6 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun createProductListViewModel() = ProductListViewModel().apply { title = "My Products" }
+
 
 }
