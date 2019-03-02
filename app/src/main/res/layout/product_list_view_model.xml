@@ -49,17 +49,28 @@
       />
 
       <!--
+      Phase 1-3
+
       NOTE: notice the binding of onClick to viewModel.onCartClicked()
       -->
-      <ImageButton
-          android:id="@+id/cart_button"
+      <!--<ImageButton-->
+          <!--android:id="@+id/cart_button"-->
+          <!--android:layout_width="48dp"-->
+          <!--android:layout_height="48dp"-->
+          <!--android:layout_marginStart="16dp"-->
+          <!--android:layout_gravity="center_vertical"-->
+          <!--android:background="@android:color/transparent"-->
+          <!--android:src="@drawable/shopping_cart_black_24dp"-->
+          <!--android:onClick="@{() -> viewModel.onCartClicked()}"-->
+      <!--/>-->
+
+      <!--
+      Phase 4 - binding adapters & ViewModel base class
+      -->
+      <FrameLayout
           android:layout_width="48dp"
           android:layout_height="48dp"
-          android:layout_marginStart="16dp"
-          android:layout_gravity="center_vertical"
-          android:background="@android:color/transparent"
-          android:src="@drawable/shopping_cart_black_24dp"
-          android:onClick="@{() -> viewModel.onCartClicked()}"
+          bind:createView="@{viewModel.cartViewModel}"
       />
 
     </LinearLayout>

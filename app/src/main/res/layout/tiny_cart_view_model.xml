@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+>
+
+  <data>
+    <variable name="viewModel" type="com.example.mvvmdemo.viewmodels.TinyCartViewModel" />
+  </data>
+
+  <FrameLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
+    
+    <ImageButton
+        android:id="@+id/cart_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_vertical"
+        android:background="@android:color/transparent"
+        android:src="@drawable/shopping_cart_black_24dp"
+        android:onClick="@{() -> viewModel.onClicked()}"
+    />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="center"
+        android:textSize="10sp"
+        android:textColor="@android:color/black"
+        android:text="@{viewModel.count}"
+        tools:text="3"
+    />
+
+  </FrameLayout>
+
+</layout>

@@ -1,6 +1,7 @@
 package com.example.mvvmdemo
 
 import android.arch.lifecycle.ViewModel
+import com.example.mvvmdemo.models.Cart
 import com.example.mvvmdemo.viewmodels.ProductListViewModel
 
 /**
@@ -8,11 +9,14 @@ import com.example.mvvmdemo.viewmodels.ProductListViewModel
  */
 class MainActivityState : ViewModel() {
 
+  var cart: Cart? = null
+
   var productsViewModel: ProductListViewModel? = null
 
-  val isInitialized: Boolean = productsViewModel != null
+  val isInitialized: Boolean = cart != null
 
-  fun initialize(productsViewModel: ProductListViewModel) {
+  fun initialize(cart: Cart, productsViewModel: ProductListViewModel) {
+    this.cart = cart
     this.productsViewModel = productsViewModel
   }
 

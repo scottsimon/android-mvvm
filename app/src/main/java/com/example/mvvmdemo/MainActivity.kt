@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.example.mvvmdemo.databinding.ProductListViewModelBinding
+import com.example.mvvmdemo.models.Cart
 import com.example.mvvmdemo.mvvm.createView
 import com.example.mvvmdemo.viewmodels.ProductListViewModel
 
@@ -25,8 +26,8 @@ class MainActivity : AppCompatActivity() {
     val state = getState()
     val productsViewModel = state.productsViewModel
 
-    // Phase 2. Simple data binding example
-    //
+    //region Phase 2. Simple data binding example
+
 //    val binding = DataBindingUtil.inflate<ProductListViewModelBinding>(
 //      LayoutInflater.from(this),
 //      R.layout.product_list_view_model,
@@ -38,9 +39,13 @@ class MainActivity : AppCompatActivity() {
 //
 //    contentFrame.addView(binding.root)
 
-    // Phase 3. Binding adapters & ViewModel base class
+    //endregion
+
+    //region Phase 3. Binding adapters & ViewModel base class
     //
     createView(contentFrame, productsViewModel)
+
+    //endregion
 
     // Phase 4.
   }
@@ -54,13 +59,13 @@ class MainActivity : AppCompatActivity() {
 
     // If this is the first time the state was created, create our intial state/data/view-model
     if (!mainActivityState.isInitialized) {
-      mainActivityState.initialize(createProductListViewModel())
+      val cart = Cart()
+      val productListViewModel = ProductListViewModel(cart).apply { title = "My Products" }
+      mainActivityState.initialize(cart, productListViewModel)
     }
 
     return mainActivityState
   }
-
-  private fun createProductListViewModel() = ProductListViewModel().apply { title = "My Products" }
 
 
 }
