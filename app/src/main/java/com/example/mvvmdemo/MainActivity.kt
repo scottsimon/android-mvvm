@@ -2,13 +2,9 @@ package com.example.mvvmdemo
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.LayoutInflater
 import android.widget.FrameLayout
-import com.example.mvvmdemo.databinding.ProductListViewModelBinding
-import com.example.mvvmdemo.messaging.MessageFactory
 import com.example.mvvmdemo.messaging.MessageFactoryImpl
 import com.example.mvvmdemo.models.Cart
 import com.example.mvvmdemo.models.Store
@@ -25,69 +21,73 @@ class MainActivity : AppCompatActivity() {
     // get the FrameLayout that will hold/contain our (view-model) content
     val contentFrame = findViewById<FrameLayout>(R.id.content_frame)
 
-    // Phase 1. Android ViewModel architecture component
+    // Item 1: Android ViewModel architecture component
     //
-    val state = getState()
-    val productsViewModel = state.productsViewModel
+    val state = getActivityState()
+    updateActivityState(state)
 
-    //region Phase 2. Simple data binding example
+    //region Item 2: Simple data binding example
 
+//    if (state.currentViewModel == null) {
+//      state.currentViewModel = ProductListViewModel(state.store, state.cart, state.messageFactory).apply {
+//        title = "Products (Basic)"
+//      }
+//    }
+//
 //    val binding = DataBindingUtil.inflate<ProductListViewModelBinding>(
 //      LayoutInflater.from(this),
 //      R.layout.product_list_view_model,
 //      contentFrame,
 //      false
 //    )
-//    binding.setVariable(BR.viewModel, productsViewModel)
+//    binding.setVariable(BR.viewModel, state.currentViewModel)
 //    binding.executePendingBindings()
 //
 //    contentFrame.addView(binding.root)
 
     //endregion
 
-    //region Phase 3. Binding adapters & ViewModel base class
-    //
-    createView(contentFrame, productsViewModel)
+    //region Item 3: ViewModel base class and binding adapters
+
+    if (state.currentViewModel == null) {
+      state.currentViewModel = ProductListViewModel(state.store, state.cart, state.messageFactory).apply {
+        title = "Products (ViewModel)"
+      }
+    }
+
+    createView(contentFrame, state.currentViewModel)
 
     //endregion
 
-    // Phase 4.
+    //region Item 4: ViewModel base class and binding adapters
+
+    // todo ****
+
+    //endregion
+
   }
 
-  private fun getState(): MainActivityState {
-    // Use Android's ViewModel architecture component "to store and manage UI-related data in a lifecycle conscious way."
-    //
-    // https://developer.android.com/reference/androidx/lifecycle/ViewModel.html
-    //
+  //region Item 1: Android ViewModel architecture component
+
+  private fun getActivityState(): MainActivityState {
     val mainActivityState = ViewModelProviders.of(this).get(MainActivityState::class.java)
 
+    // If this is the first time the state was created, create our intial data/models
     if (!mainActivityState.isInitialized) {
-      // If this is the first time the state was created, create our intial state/data/view-model
       initActivityState(mainActivityState)
-    } else {
-      updateActivityState(mainActivityState)
     }
 
     return mainActivityState
   }
 
-  private val contextProvider: () -> Context? = { this }
-
   private fun initActivityState(state: MainActivityState) {
     val store = Store()
     val cart = Cart()
     val messageFactory = createMessageFactory()
-    val productListViewModel = createProductListViewModel(store, cart, messageFactory)
-    state.initialize(store, cart, productListViewModel)
+    state.initialize(store, cart, messageFactory)
   }
 
-  private fun createProductListViewModel(
-    store: Store,
-    cart: Cart,
-    messageFactory: MessageFactoryImpl
-  ): ProductListViewModel = ProductListViewModel(store, cart, messageFactory).apply {
-    title = "My Products"
-  }
+  //endregion Item 1: Android ViewModel architecture component
 
   //region Message factory
 
@@ -103,10 +103,14 @@ class MainActivity : AppCompatActivity() {
     }
   }
 
+  private val contextProvider: () -> Context? = { this }
+
   private fun updateMessageFactory(messageFactoryImpl: MessageFactoryImpl) {
+    // Update the message factory to use us (the current Activity) as its context when showing messages
     messageFactoryImpl.contextProvider = contextProvider
   }
 
   //endregion Message factory
 
 }
+

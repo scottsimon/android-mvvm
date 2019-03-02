@@ -1,29 +1,28 @@
 package com.example.mvvmdemo
 
 import android.arch.lifecycle.ViewModel
-import com.example.mvvmdemo.messaging.MessageFactory
 import com.example.mvvmdemo.messaging.MessageFactoryImpl
 import com.example.mvvmdemo.models.Cart
 import com.example.mvvmdemo.models.Store
-import com.example.mvvmdemo.viewmodels.ProductListViewModel
 
 /**
  * Android architecture component used to hold onto the data/state of the [MainActivity].
  */
 class MainActivityState : ViewModel() {
 
-  var store: Store? = null
-  var cart: Cart? = null
-  var messageFactory: MessageFactoryImpl? = null
+  lateinit var store: Store
+  lateinit var cart: Cart
+  lateinit var messageFactory: MessageFactoryImpl
 
-  var productsViewModel: ProductListViewModel? = null
+  var currentViewModel: com.example.mvvmdemo.mvvm.ViewModel? = null
 
   val isInitialized: Boolean
-      get() = cart != null
+      get() = ::store.isInitialized
 
-  fun initialize(store: Store, cart: Cart, productsViewModel: ProductListViewModel) {
+  fun initialize(store: Store, cart: Cart, messageFactory: MessageFactoryImpl) {
+    this.store = store
     this.cart = cart
-    this.productsViewModel = productsViewModel
+    this.messageFactory = messageFactory
   }
 
 }
