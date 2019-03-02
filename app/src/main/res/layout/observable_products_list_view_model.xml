@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <data>
+    <variable name="viewModel" type="com.example.mvvmdemo.viewmodels.ObservableProductsListViewModel" />
+  </data>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+
+    <!--
+    NOTE: notice the (one-way) binding here with the @{viewModel.title}
+    -->
+    <TextView
+        android:id="@+id/title_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        android:text="@{viewModel.title}"
+    />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp">
+
+      <!--
+      NOTE: notice the two-way binding here with the @={viewModel.filterText}
+      -->
+      <EditText
+          android:id="@+id/product_filter_edittext"
+          android:layout_height="wrap_content"
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:hint="filter"
+          android:text="@={viewModel.filterText}"
+          android:imeOptions="flagNoExtractUi"
+      />
+
+      <!--
+      NOTE: notice the binding of onClick to viewModel.onCartClicked()
+      -->
+      <ImageButton
+          android:id="@+id/cart_button"
+          android:layout_width="48dp"
+          android:layout_height="48dp"
+          android:layout_marginStart="16dp"
+          android:layout_gravity="center_vertical"
+          android:background="@android:color/transparent"
+          android:src="@drawable/shopping_cart_black_24dp"
+          android:onClick="@{() -> viewModel.onCartClicked()}"
+      />
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+</layout>

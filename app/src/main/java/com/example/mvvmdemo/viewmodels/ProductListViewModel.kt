@@ -18,27 +18,27 @@ class ProductListViewModel : BaseObservable() {
 
   //region Phase 1
 
-  var title: String? = null
-
-  var filterText: String? = null
+//  var title: String? = null
+//
+//  var filterText: String? = null
 
   //endregion Phase 1
 
   //region Phase 2 - bindable properties
 
-//  @Bindable
-//  var title: String? = null
-//    set(value) {
-//      field = value
-//      notifyPropertyChanged(BR.title) // BR.title auto-generated
-//    }
-//
-//  @Bindable
-//  var filterText: String? = ""
-//    set(value) {
-//      field = value
-//      notifyPropertyChanged(BR.filterText) // BR.title auto-generated
-//    }
+  @Bindable
+  var title: String? = null
+    set(value) {
+      field = value
+      notifyPropertyChanged(BR.title) // BR.title auto-generated
+    }
+
+  @Bindable
+  var filterText: String? = ""
+    set(value) {
+      field = value
+      notifyPropertyChanged(BR.filterText) // BR.title auto-generated
+    }
 
   //endregion
 

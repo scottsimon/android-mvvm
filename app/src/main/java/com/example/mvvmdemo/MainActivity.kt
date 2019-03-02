@@ -13,6 +13,7 @@ import com.example.mvvmdemo.models.Cart
 import com.example.mvvmdemo.models.Store
 import com.example.mvvmdemo.mvvm.createView
 import com.example.mvvmdemo.viewmodels.BasicProductsListViewModel
+import com.example.mvvmdemo.viewmodels.ObservableProductsListViewModel
 import com.example.mvvmdemo.viewmodels.ProductListViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -30,17 +31,38 @@ class MainActivity : AppCompatActivity() {
     val state = getActivityState()
     updateActivityState(state)
 
-    //region Item 2: Simple data binding example
+    //region Item 2: Basic Android data binding
+
+//    if (state.basicViewModel == null) {
+//      state.basicViewModel = BasicProductsListViewModel().apply {
+//        title = "Products (Basic)"
+//      }
+//    }
+//
+//    val binding = DataBindingUtil.inflate<ViewDataBinding>(
+//      LayoutInflater.from(this),
+//      R.layout.basic_product_list_view_model,
+//      contentFrame,
+//      false
+//    )
+//    binding.setVariable(BR.viewModel, state.basicViewModel)
+//    binding.executePendingBindings()
+//
+//    contentFrame.addView(binding.root)
+
+    //endregion
+
+    //region Item 3: Observable view-model class
 
     if (state.basicViewModel == null) {
-      state.basicViewModel = BasicProductsListViewModel().apply {
-        title = "Products (Basic)"
+      state.basicViewModel = ObservableProductsListViewModel().apply {
+        title = "Products (Observable)"
       }
     }
 
     val binding = DataBindingUtil.inflate<ViewDataBinding>(
       LayoutInflater.from(this),
-      R.layout.basic_product_list_view_model,
+      R.layout.observable_products_list_view_model,
       contentFrame,
       false
     )
