@@ -1,6 +1,5 @@
 package com.example.mvvmdemo.viewmodels
 
-import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.example.mvvmdemo.BR
 import com.example.mvvmdemo.R

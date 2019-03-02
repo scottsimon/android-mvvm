@@ -23,6 +23,8 @@ class BaseProductListViewModel : ViewModel(R.layout.base_product_list_view_model
 
   fun onCartClicked() {
     logDebug("onCartClicked! filter text=$filterText")
+
+    title = filterText // NOTE: now the view gets updated
   }
 
 }
