@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+  <data>
+    <variable name="viewModel" type="com.example.mvvmdemo.viewmodels.ProductSummaryViewModel" />
+  </data>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="72dp"
+      android:orientation="horizontal"
+      android:background="?attr/selectableItemBackground"
+      android:onClick="@{() -> viewModel.onClick()}">
+
+    <TextView
+        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:text="@{viewModel.title}"
+        tools:text="product title"
+    />
+
+    <ImageButton
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/add_circle_outline_black_24dp"
+        android:onClick="@{() -> viewModel.onAddClicked()}"
+    />
+
+  </LinearLayout>
+
+</layout>

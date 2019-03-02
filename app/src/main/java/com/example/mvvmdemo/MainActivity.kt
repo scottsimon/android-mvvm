@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.example.mvvmdemo.databinding.ProductListViewModelBinding
 import com.example.mvvmdemo.models.Cart
+import com.example.mvvmdemo.models.Store
 import com.example.mvvmdemo.mvvm.createView
 import com.example.mvvmdemo.viewmodels.ProductListViewModel
 
@@ -59,9 +60,10 @@ class MainActivity : AppCompatActivity() {
 
     // If this is the first time the state was created, create our intial state/data/view-model
     if (!mainActivityState.isInitialized) {
+      val store = Store()
       val cart = Cart()
-      val productListViewModel = ProductListViewModel(cart).apply { title = "My Products" }
-      mainActivityState.initialize(cart, productListViewModel)
+      val productListViewModel = ProductListViewModel(store, cart).apply { title = "My Products" }
+      mainActivityState.initialize(store, cart, productListViewModel)
     }
 
     return mainActivityState

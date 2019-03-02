@@ -4,6 +4,7 @@ import android.content.Context
 import android.databinding.BindingAdapter
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,4 +38,10 @@ fun createView(context: Context, parent: ViewGroup, viewModel: ViewModel): View?
   binding.executePendingBindings()
 
   return binding.root
+}
+
+@BindingAdapter("recyclerViewAdapter")
+fun bindRecyclerViewAdapter(recyclerView: RecyclerView, viewModels: List<ViewModel>?) {
+  val adapter = ViewModelRecyclerViewAdapter(viewModels)
+  recyclerView.adapter = adapter
 }

@@ -6,6 +6,7 @@ import com.example.mvvmdemo.R
 import com.example.mvvmdemo.misc.logDebug
 import com.example.mvvmdemo.models.Cart
 import com.example.mvvmdemo.models.Product
+import com.example.mvvmdemo.models.Store
 import com.example.mvvmdemo.mvvm.ViewModel
 import com.example.mvvmdemo.mvvm.bindable
 
@@ -70,7 +71,7 @@ import com.example.mvvmdemo.mvvm.bindable
 
 // Phase 4: binding adapters & ViewModel base class
 //
-class ProductListViewModel(private val cart: Cart) : ViewModel(R.layout.product_list_view_model) {
+class ProductListViewModel(private val store: Store, private val cart: Cart) : ViewModel(R.layout.product_list_view_model) {
 
   @get:Bindable
   var title: String? by bindable(BR.title, null)
@@ -79,6 +80,14 @@ class ProductListViewModel(private val cart: Cart) : ViewModel(R.layout.product_
   var filterText: String? by bindable(BR.filterText, "")
 
   val cartViewModel = TinyCartViewModel(cart).apply { onClickedCallback = { onCartClicked() } }
+
+  val productViewModels: List<ProductSummaryViewModel> = createSummaryViewModels()
+
+  private fun createSummaryViewModels(): List<ProductSummaryViewModel> {
+    return store.products.map { product ->
+      ProductSummaryViewModel(product)
+    }
+  }
 
   fun onCartClicked() {
     logDebug("onCartClicked! filter text=$filterText")
