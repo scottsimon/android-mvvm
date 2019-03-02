@@ -12,64 +12,21 @@ import com.example.mvvmdemo.models.Store
 import com.example.mvvmdemo.mvvm.ViewModel
 import com.example.mvvmdemo.mvvm.bindable
 
-// Phase 1/2: basic data binding
-//
-class ProductListViewModel : BaseObservable() {
+// Item 4: ViewModel base class and binding adapters
 
-  //region Phase 1
+class ProductListViewModel : ViewModel(R.layout.product_list_view_model) {
 
-//  var title: String? = null
-//
-//  var filterText: String? = null
+  @get:Bindable
+  var title: String? by bindable(BR.title, null)
 
-  //endregion Phase 1
-
-  //region Phase 2 - bindable properties
-
-  @Bindable
-  var title: String? = null
-    set(value) {
-      field = value
-      notifyPropertyChanged(BR.title) // BR.title auto-generated
-    }
-
-  @Bindable
-  var filterText: String? = ""
-    set(value) {
-      field = value
-      notifyPropertyChanged(BR.filterText) // BR.title auto-generated
-    }
-
-  //endregion
+  @get:Bindable
+  var filterText: String? by bindable(BR.filterText, "")
 
   fun onCartClicked() {
     logDebug("onCartClicked! filter text=$filterText")
-
-    // Phase 2
-    title = filterText
   }
 
 }
-
-
-// Phase 3: binding adapters & ViewModel base class
-//
-//class ProductListViewModel : ViewModel(R.layout.product_list_view_model) {
-//
-//  @get:Bindable
-//  var title: String? by bindable(BR.title, null)
-//
-//  @get:Bindable
-//  var filterText: String? by bindable(BR.filterText, "")
-//
-//  fun onCartClicked() {
-//    logDebug("onCartClicked! filter text=$filterText")
-//
-//    // Phase 2
-//    title = filterText
-//  }
-//
-//}
 
 // Phase 4: binding adapters & ViewModel base class
 //

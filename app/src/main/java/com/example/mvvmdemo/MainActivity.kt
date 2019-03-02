@@ -12,6 +12,7 @@ import com.example.mvvmdemo.messaging.MessageFactoryImpl
 import com.example.mvvmdemo.models.Cart
 import com.example.mvvmdemo.models.Store
 import com.example.mvvmdemo.mvvm.createView
+import com.example.mvvmdemo.viewmodels.BaseProductListViewModel
 import com.example.mvvmdemo.viewmodels.BasicProductsListViewModel
 import com.example.mvvmdemo.viewmodels.ObservableProductsListViewModel
 import com.example.mvvmdemo.viewmodels.ProductListViewModel
@@ -26,11 +27,13 @@ class MainActivity : AppCompatActivity() {
     // get the FrameLayout that will hold/contain our (view-model) content
     val contentFrame = findViewById<FrameLayout>(R.id.content_frame)
 
+    // ----------------------------------------------------------------------
     // Item 1: Android ViewModel architecture component
     //
     val state = getActivityState()
     updateActivityState(state)
 
+    // ----------------------------------------------------------------------
     //region Item 2: Basic Android data binding
 
 //    if (state.basicViewModel == null) {
@@ -52,28 +55,42 @@ class MainActivity : AppCompatActivity() {
 
     //endregion
 
+    // ----------------------------------------------------------------------
     //region Item 3: Observable view-model class
 
-    if (state.basicViewModel == null) {
-      state.basicViewModel = ObservableProductsListViewModel().apply {
-        title = "Products (Observable)"
-      }
-    }
-
-    val binding = DataBindingUtil.inflate<ViewDataBinding>(
-      LayoutInflater.from(this),
-      R.layout.observable_products_list_view_model,
-      contentFrame,
-      false
-    )
-    binding.setVariable(BR.viewModel, state.basicViewModel)
-    binding.executePendingBindings()
-
-    contentFrame.addView(binding.root)
+//    if (state.basicViewModel == null) {
+//      state.basicViewModel = ObservableProductsListViewModel().apply {
+//        title = "Products (Observable)"
+//      }
+//    }
+//
+//    val binding = DataBindingUtil.inflate<ViewDataBinding>(
+//      LayoutInflater.from(this),
+//      R.layout.observable_products_list_view_model,
+//      contentFrame,
+//      false
+//    )
+//    binding.setVariable(BR.viewModel, state.basicViewModel)
+//    binding.executePendingBindings()
+//
+//    contentFrame.addView(binding.root)
 
     //endregion
 
-    //region Item 3: ViewModel base class and binding adapters
+    // ----------------------------------------------------------------------
+    //region Item 4: ViewModel base class and binding adapters
+
+    if (state.currentViewModel == null) {
+      state.currentViewModel = BaseProductListViewModel().apply {
+        title = "Products (ViewModel)"
+      }
+    }
+
+    createView(contentFrame, state.currentViewModel)
+
+    //endregion
+
+    //region Item 5: Recycler view items
 
 //    if (state.currentViewModel == null) {
 //      state.currentViewModel = ProductListViewModel(state.store, state.cart, state.messageFactory).apply {
@@ -82,12 +99,6 @@ class MainActivity : AppCompatActivity() {
 //    }
 //
 //    createView(contentFrame, state.currentViewModel)
-
-    //endregion
-
-    //region Item 4: ViewModel base class and binding adapters
-
-    // todo ****
 
     //endregion
 
