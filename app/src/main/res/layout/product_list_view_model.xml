@@ -46,6 +46,7 @@
           android:layout_weight="1"
           android:hint="filter"
           android:text="@={viewModel.filterText}"
+          android:imeOptions="flagNoExtractUi"
       />
 
       <!--
