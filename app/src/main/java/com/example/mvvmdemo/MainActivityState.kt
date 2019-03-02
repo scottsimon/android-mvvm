@@ -6,7 +6,7 @@ import com.example.mvvmdemo.viewmodels.ProductListViewModel
 /**
  * Android architecture component used to hold onto the data/state of the [MainActivity].
  */
-class MainActivityViewModel : ViewModel() {
+class MainActivityState : ViewModel() {
 
   var productsViewModel: ProductListViewModel? = null
 

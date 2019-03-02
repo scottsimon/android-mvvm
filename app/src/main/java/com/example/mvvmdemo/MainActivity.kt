@@ -15,13 +15,15 @@ class MainActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
 
     setContentView(R.layout.activity_main)
+
+    // get the FrameLayout that will hold/contain our (view-model) content
     val contentFrame = findViewById<FrameLayout>(R.id.content_frame)
 
     // Step 1. Android ViewModel architecture component
-    val stateViewModel = getStateViewModel()
+    val state = getState()
 
     // Step 2. Simple data binding example
-    val productsViewModel = stateViewModel.productsViewModel
+    val productsViewModel = state.productsViewModel
 
     val binding = DataBindingUtil.inflate<ProductListViewModelBinding>(
       LayoutInflater.from(this),
@@ -34,21 +36,22 @@ class MainActivity : AppCompatActivity() {
 
     contentFrame.addView(binding.root)
 
+    // Step 3. Use binding adapter
   }
 
-  private fun getStateViewModel(): MainActivityViewModel {
+  private fun getState(): MainActivityState {
     // Use Android's ViewModel architecture component "to store and manage UI-related data in a lifecycle conscious way."
     //
     // https://developer.android.com/reference/androidx/lifecycle/ViewModel.html
     //
-    val mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
+    val mainActivityState = ViewModelProviders.of(this).get(MainActivityState::class.java)
 
-    // Perform any needed initialization...
-    if (!mainActivityViewModel.isInitialized) {
-      mainActivityViewModel.initialize(createProductListViewModel())
+    // If this is the first time the state was created, create our intial state/data/view-model
+    if (!mainActivityState.isInitialized) {
+      mainActivityState.initialize(createProductListViewModel())
     }
 
-    return mainActivityViewModel
+    return mainActivityState
   }
 
   private fun createProductListViewModel() = ProductListViewModel().apply { title = "My Products" }
