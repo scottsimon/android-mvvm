@@ -2,13 +2,17 @@ package com.example.mvvmdemo
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.databinding.DataBindingUtil
+import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.example.mvvmdemo.messaging.MessageFactoryImpl
 import com.example.mvvmdemo.models.Cart
 import com.example.mvvmdemo.models.Store
 import com.example.mvvmdemo.mvvm.createView
+import com.example.mvvmdemo.viewmodels.BasicProductsListViewModel
 import com.example.mvvmdemo.viewmodels.ProductListViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -28,34 +32,34 @@ class MainActivity : AppCompatActivity() {
 
     //region Item 2: Simple data binding example
 
-//    if (state.currentViewModel == null) {
-//      state.currentViewModel = ProductListViewModel(state.store, state.cart, state.messageFactory).apply {
-//        title = "Products (Basic)"
-//      }
-//    }
-//
-//    val binding = DataBindingUtil.inflate<ProductListViewModelBinding>(
-//      LayoutInflater.from(this),
-//      R.layout.product_list_view_model,
-//      contentFrame,
-//      false
-//    )
-//    binding.setVariable(BR.viewModel, state.currentViewModel)
-//    binding.executePendingBindings()
-//
-//    contentFrame.addView(binding.root)
+    if (state.basicViewModel == null) {
+      state.basicViewModel = BasicProductsListViewModel().apply {
+        title = "Products (Basic)"
+      }
+    }
+
+    val binding = DataBindingUtil.inflate<ViewDataBinding>(
+      LayoutInflater.from(this),
+      R.layout.basic_product_list_view_model,
+      contentFrame,
+      false
+    )
+    binding.setVariable(BR.viewModel, state.basicViewModel)
+    binding.executePendingBindings()
+
+    contentFrame.addView(binding.root)
 
     //endregion
 
     //region Item 3: ViewModel base class and binding adapters
 
-    if (state.currentViewModel == null) {
-      state.currentViewModel = ProductListViewModel(state.store, state.cart, state.messageFactory).apply {
-        title = "Products (ViewModel)"
-      }
-    }
-
-    createView(contentFrame, state.currentViewModel)
+//    if (state.currentViewModel == null) {
+//      state.currentViewModel = ProductListViewModel(state.store, state.cart, state.messageFactory).apply {
+//        title = "Products (ViewModel)"
+//      }
+//    }
+//
+//    createView(contentFrame, state.currentViewModel)
 
     //endregion
 

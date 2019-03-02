@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
   <data>
-    <variable name="viewModel" type="com.example.mvvmdemo.viewmodels.ProductListViewModel" />
+    <variable name="viewModel" type="com.example.mvvmdemo.viewmodels.BasicProductsListViewModel" />
   </data>
 
   <LinearLayout
@@ -50,8 +45,6 @@
       />
 
       <!--
-      Phase 1-3
-
       NOTE: notice the binding of onClick to viewModel.onCartClicked()
       -->
       <ImageButton
@@ -65,31 +58,8 @@
           android:onClick="@{() -> viewModel.onCartClicked()}"
       />
 
-      <!--
-      Phase 4 - binding adapters & ViewModel base class
-      -->
-      <!--<FrameLayout-->
-          <!--android:layout_width="48dp"-->
-          <!--android:layout_height="48dp"-->
-          <!--bind:createView="@{viewModel.cartViewModel}"-->
-      <!--/>-->
-
     </LinearLayout>
-
-    <!--
-    Phase 4 - binding adapters & ViewModel base class
-    -->
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/product_recyclerview"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--app:layoutManager="android.support.v7.widget.LinearLayoutManager"-->
-        <!--bind:recyclerViewAdapter="@{viewModel.productViewModels}"-->
-    <!--/>-->
 
   </LinearLayout>
 
 </layout>
-
-

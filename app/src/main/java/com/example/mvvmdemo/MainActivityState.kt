@@ -14,6 +14,7 @@ class MainActivityState : ViewModel() {
   lateinit var cart: Cart
   lateinit var messageFactory: MessageFactoryImpl
 
+  var basicViewModel: Any? = null
   var currentViewModel: com.example.mvvmdemo.mvvm.ViewModel? = null
 
   val isInitialized: Boolean
