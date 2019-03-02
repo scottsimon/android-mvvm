@@ -13,7 +13,7 @@ class TinyCartViewModel(val cart: Cart): ViewModel(R.layout.tiny_cart_view_model
   val count: String?
     get() = cart.numberOfItems.toString()
 
-  var onClickedCallback: (() -> Unit)? = null
+  var onClickedHandler: (() -> Unit)? = null
 
   init {
     cart.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
@@ -24,7 +24,7 @@ class TinyCartViewModel(val cart: Cart): ViewModel(R.layout.tiny_cart_view_model
   }
 
   fun onClicked() {
-    onClickedCallback?.invoke()
+    onClickedHandler?.invoke()
   }
 
 }

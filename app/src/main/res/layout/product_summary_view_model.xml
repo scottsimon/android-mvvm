@@ -13,7 +13,7 @@
       android:layout_height="72dp"
       android:orientation="horizontal"
       android:background="?attr/selectableItemBackground"
-      android:onClick="@{() -> viewModel.onClick()}">
+      android:onClick="@{() -> viewModel.onClicked()}">
 
     <TextView
         android:layout_height="match_parent"

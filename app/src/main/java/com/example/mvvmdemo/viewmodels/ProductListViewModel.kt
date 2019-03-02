@@ -79,23 +79,48 @@ class ProductListViewModel(private val store: Store, private val cart: Cart) : V
   @get:Bindable
   var filterText: String? by bindable(BR.filterText, "")
 
-  val cartViewModel = TinyCartViewModel(cart).apply { onClickedCallback = { onCartClicked() } }
+  val cartViewModel = TinyCartViewModel(cart).apply { onClickedHandler = { showCart() } }
 
   val productViewModels: List<ProductSummaryViewModel> = createSummaryViewModels()
 
+  private fun showCart() {
+    logDebug("showCart: ${cart.items.size} items in the cart")
+    // TODO: show cart screen/view-model
+  }
+
   private fun createSummaryViewModels(): List<ProductSummaryViewModel> {
     return store.products.map { product ->
-      ProductSummaryViewModel(product)
+      createSummaryViewModel(product)
     }
   }
 
-  fun onCartClicked() {
-    logDebug("onCartClicked! filter text=$filterText")
+  private fun createSummaryViewModel(product: Product): ProductSummaryViewModel {
+    return ProductSummaryViewModel(product).apply {
+      //region Wire up callbacks
+      onClickedHandler = { productSummaryViewModel ->
+        showProductDetails(productSummaryViewModel.product)
+      }
 
-    cart.addItem(createRandomProduct())
+      onAddToCartClickedHandler = { productSummaryViewModel ->
+        addProductToCart(productSummaryViewModel.product)
+      }
+      //endregion
+    }
   }
 
-  private fun createRandomProduct() = Product("A", "aaaa", 1.2f)
+  //region Product summary handlers
+
+  private fun showProductDetails(product: Product) {
+    logDebug("showProductDetails: ${product.name}")
+    // TODO: show product details screen/view-model
+  }
+
+  private fun addProductToCart(product: Product) {
+    logDebug("addProductToCart: ${product.name}")
+    cart.addItem(product)
+  }
+
+  //endregion
 
 }
 

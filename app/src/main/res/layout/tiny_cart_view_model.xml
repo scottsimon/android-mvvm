@@ -27,8 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_gravity="center"
-        android:textSize="10sp"
-        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textColor="#FFFF3300"
         android:text="@{viewModel.count}"
         tools:text="3"
     />

@@ -1,7 +1,6 @@
 package com.example.mvvmdemo.viewmodels
 
 import com.example.mvvmdemo.R
-import com.example.mvvmdemo.misc.logDebug
 import com.example.mvvmdemo.models.Product
 import com.example.mvvmdemo.mvvm.ViewModel
 
@@ -9,12 +8,16 @@ class ProductSummaryViewModel(val product: Product): ViewModel(R.layout.product_
 
   val title: String = product.name
 
-  fun onClick() {
-    logDebug("${product.name} clicked!")
+  var onClickedHandler: ((ProductSummaryViewModel) -> Unit)? = null
+
+  var onAddToCartClickedHandler: ((ProductSummaryViewModel) -> Unit)? = null
+
+  fun onClicked() {
+    onClickedHandler?.invoke(this)
   }
 
   fun onAddClicked() {
-    logDebug("Add clicked for ${product.name}!")
+    onAddToCartClickedHandler?.invoke(this)
   }
 
 }
