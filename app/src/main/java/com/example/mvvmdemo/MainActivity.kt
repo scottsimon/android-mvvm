@@ -80,25 +80,26 @@ class MainActivity : AppCompatActivity() {
     // ----------------------------------------------------------------------
     //region Item 4: ViewModel base class and binding adapters
 
-    if (state.currentViewModel == null) {
-      state.currentViewModel = BaseProductListViewModel().apply {
-        title = "Products (ViewModel)"
-      }
-    }
-
-    createView(contentFrame, state.currentViewModel)
-
-    //endregion
-
-    //region Item 5: Recycler view items
-
 //    if (state.currentViewModel == null) {
-//      state.currentViewModel = ProductListViewModel(state.store, state.cart, state.messageFactory).apply {
+//      state.currentViewModel = BaseProductListViewModel().apply {
 //        title = "Products (ViewModel)"
 //      }
 //    }
 //
 //    createView(contentFrame, state.currentViewModel)
+
+    //endregion
+
+    // ----------------------------------------------------------------------
+    //region Item 5: Recycler view items and nested view-models
+
+    if (state.currentViewModel == null) {
+      state.currentViewModel = ProductListViewModel(state.store, state.cart, state.messageFactory).apply {
+        title = "Products (Recycler View)"
+      }
+    }
+
+    createView(contentFrame, state.currentViewModel)
 
     //endregion
 

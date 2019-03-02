@@ -15,9 +15,6 @@
       android:layout_height="match_parent"
       android:orientation="vertical">
 
-    <!--
-    NOTE: notice the (one-way) binding here with the @{viewModel.title}
-    -->
     <TextView
         android:id="@+id/title_textview"
         android:layout_width="match_parent"
@@ -36,9 +33,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp">
 
-      <!--
-      NOTE: notice the two-way binding here with the @={viewModel.filterText}
-      -->
       <EditText
           android:id="@+id/product_filter_edittext"
           android:layout_height="wrap_content"
@@ -50,43 +44,27 @@
       />
 
       <!--
-      Phase 1-3
-
-      NOTE: notice the binding of onClick to viewModel.onCartClicked()
+      NOTE: the bind:createView binding adapter to show nested view-models in this view
       -->
-      <ImageButton
-          android:id="@+id/cart_button"
+      <FrameLayout
           android:layout_width="48dp"
           android:layout_height="48dp"
-          android:layout_marginStart="16dp"
-          android:layout_gravity="center_vertical"
-          android:background="@android:color/transparent"
-          android:src="@drawable/shopping_cart_black_24dp"
-          android:onClick="@{() -> viewModel.onCartClicked()}"
+          bind:createView="@{viewModel.cartViewModel}"
       />
-
-      <!--
-      Phase 4 - binding adapters & ViewModel base class
-      -->
-      <!--<FrameLayout-->
-          <!--android:layout_width="48dp"-->
-          <!--android:layout_height="48dp"-->
-          <!--bind:createView="@{viewModel.cartViewModel}"-->
-      <!--/>-->
 
     </LinearLayout>
 
     <!--
-    Phase 4 - binding adapters & ViewModel base class
+    NOTE: the bind:recyclerViewAdapter binding adapter to show view-models as recycler view items
     -->
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/product_recyclerview"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--app:layoutManager="android.support.v7.widget.LinearLayoutManager"-->
-        <!--bind:recyclerViewAdapter="@{viewModel.productViewModels}"-->
-    <!--/>-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/product_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        bind:recyclerViewAdapter="@{viewModel.productViewModels}"
+    />
 
   </LinearLayout>
 
