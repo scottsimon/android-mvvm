@@ -8,6 +8,8 @@ class ProductSummaryViewModel(val product: Product): ViewModel(R.layout.product_
 
   val title: String = product.name
 
+  val description: String = product.description
+
   var onClickedHandler: ((ProductSummaryViewModel) -> Unit)? = null
 
   var onAddToCartClickedHandler: ((ProductSummaryViewModel) -> Unit)? = null

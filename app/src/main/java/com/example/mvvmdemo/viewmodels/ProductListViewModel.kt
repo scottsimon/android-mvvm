@@ -4,7 +4,6 @@ import android.databinding.Bindable
 import com.example.mvvmdemo.BR
 import com.example.mvvmdemo.R
 import com.example.mvvmdemo.messaging.MessageFactory
-import com.example.mvvmdemo.misc.logDebug
 import com.example.mvvmdemo.models.Cart
 import com.example.mvvmdemo.models.Product
 import com.example.mvvmdemo.models.Store
@@ -28,7 +27,7 @@ class ProductListViewModel(
   val productViewModels: List<ProductSummaryViewModel> = createSummaryViewModels()
 
   private fun showCart() {
-    logDebug("showCart: ${cart.items.size} items in the cart")
+    messageFactory.showTransientMessage("Cart has ${cart.items.size} items")
     // TODO: show cart screen/view-model
   }
 
@@ -53,7 +52,7 @@ class ProductListViewModel(
   //region Product summary handlers
 
   private fun showProductDetails(product: Product) {
-    logDebug("showProductDetails: ${product.name}")
+    messageFactory.showTransientMessage("Show details for product: ${product.name}")
     // TODO: show product details screen/view-model
   }
 

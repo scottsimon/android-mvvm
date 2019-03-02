@@ -35,6 +35,9 @@ class MainActivity : AppCompatActivity() {
     val state = getActivityState()
     updateActivityState(state)
 
+    // ----------------------------------------------------------------------
+    // Presenting view-model content
+    // ----------------------------------------------------------------------
     val method = METHOD.FULL
 
     when (method) {
