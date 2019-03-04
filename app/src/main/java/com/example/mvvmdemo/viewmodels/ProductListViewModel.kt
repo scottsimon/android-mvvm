@@ -35,7 +35,8 @@ class ProductListViewModel(
   //region Recycler view items
 
   @get:Bindable
-  var productViewModels: List<ProductSummaryViewModel> by bindable(BR.productViewModels, allProductViewModels)
+  var productViewModels: List<ProductSummaryViewModel>
+      by bindable(BR.productViewModels, allProductViewModels)
 
   private fun createSummaryViewModels(): List<ProductSummaryViewModel> {
     return store.products.map { product ->

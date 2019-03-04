@@ -12,7 +12,8 @@ class BindingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
   val binding: ViewDataBinding? = DataBindingUtil.bind(itemView)
 }
 
-class ViewModelRecyclerViewAdapter(viewModels: List<ViewModel>?) : RecyclerView.Adapter<BindingViewHolder>() {
+class ViewModelRecyclerViewAdapter(viewModels: List<ViewModel>?)
+  : RecyclerView.Adapter<BindingViewHolder>() {
 
   private var viewModels: MutableList<ViewModel>? = viewModels?.toMutableList()
 
@@ -21,7 +22,13 @@ class ViewModelRecyclerViewAdapter(viewModels: List<ViewModel>?) : RecyclerView.
   override fun getItemViewType(position: Int): Int = viewModels!![position].layoutResId
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder {
-    val binding = DataBindingUtil.inflate<ViewDataBinding>(LayoutInflater.from(parent.context), viewType, parent, false)
+    val binding = DataBindingUtil.inflate<ViewDataBinding>(
+      LayoutInflater.from(parent.context),
+      viewType,
+      parent,
+      false
+    )
+
     return BindingViewHolder(binding.root)
   }
 

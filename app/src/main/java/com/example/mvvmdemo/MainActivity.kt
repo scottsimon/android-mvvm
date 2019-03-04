@@ -15,7 +15,7 @@ import com.example.mvvmdemo.viewmodels.BasicProductsListViewModel
 import com.example.mvvmdemo.viewmodels.ObservableProductsListViewModel
 import com.example.mvvmdemo.viewmodels.ProductListViewModel
 
-private enum class METHOD { BASIC, OBSERVABLE, VIEW_MODEL_BASE_CLASS, FULL }
+private enum class METHOD { BASIC, OBSERVABLE, VIEW_MODEL_BASE_CLASS, FINAL }
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     //region Presenting view-model content
 
-    val method = METHOD.FULL
+    val method = METHOD.FINAL
 
     when (method) {
       // ----------------------------------------------------------------------
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
       // ----------------------------------------------------------------------
       // Item 5: Recycler view items and nested view-models
       // ----------------------------------------------------------------------
-      METHOD.FULL -> createAndShowProductListViewModel(state, frameLayout)
+      METHOD.FINAL -> createAndShowProductListViewModel(state, frameLayout)
     }
 
     //endregion
@@ -149,7 +149,11 @@ class MainActivity : AppCompatActivity() {
 
   private fun createAndShowProductListViewModel(state: MainActivityState, frameLayout: FrameLayout) {
     if (state.currentViewModel == null) {
-      state.currentViewModel = ProductListViewModel(state.store, state.cart, state.messageFactory).apply {
+      state.currentViewModel = ProductListViewModel(
+        state.store,
+        state.cart,
+        state.messageFactory
+      ).apply {
         title = "Products (Recycler View)"
       }
     }
