@@ -34,6 +34,9 @@ class MainActivity : AppCompatActivity() {
 
     //region Presenting view-model content
 
+//    val method = METHOD.BASIC
+//    val method = METHOD.OBSERVABLE
+//    val method = METHOD.VIEW_MODEL_BASE_CLASS
     val method = METHOD.FINAL
 
     when (method) {
@@ -101,7 +104,9 @@ class MainActivity : AppCompatActivity() {
       false
     )
     binding.setVariable(BR.viewModel, state.basicViewModel)
+    //region Details
     binding.executePendingBindings()
+    //endregion
 
     frameLayout.addView(binding.root)
   }
@@ -154,7 +159,7 @@ class MainActivity : AppCompatActivity() {
         state.cart,
         state.messageFactory
       ).apply {
-        title = "Products (Recycler View)"
+        title = "Products (Final)"
       }
     }
 

@@ -12,9 +12,9 @@ class BasicProductsListViewModel {
   var filterText: String? = null
 
   fun onCartClicked() {
-    logDebug("onCartClicked! filter text=$filterText")
-
     title = filterText // NOTE: view doesn't get updated
+
+    logDebug("onCartClicked! filterText=$filterText title=$title")
   }
 
 }

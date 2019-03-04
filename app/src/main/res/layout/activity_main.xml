@@ -17,7 +17,7 @@
       android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
       app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
       app:titleTextColor="@android:color/white"
-      app:title="Acme Co."
+      app:title="Android Store"
   />
 
   <FrameLayout

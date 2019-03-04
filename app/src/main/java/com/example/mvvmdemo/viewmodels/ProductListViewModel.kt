@@ -16,8 +16,6 @@ class ProductListViewModel(
   private val messageFactory: MessageFactory?
 ) : ViewModel(R.layout.product_list_view_model) {
 
-  private val allProductViewModels: List<ProductSummaryViewModel> = createSummaryViewModels()
-
   @get:Bindable
   var title: String? by bindable(BR.title, null)
 
@@ -33,6 +31,8 @@ class ProductListViewModel(
   //endregion
 
   //region Recycler view items
+
+  private val allProductViewModels: List<ProductSummaryViewModel> = createSummaryViewModels()
 
   @get:Bindable
   var productViewModels: List<ProductSummaryViewModel>
