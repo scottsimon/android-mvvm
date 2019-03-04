@@ -13,11 +13,15 @@ class MainActivityState : ViewModel() {
   val store: Store = Store()
   val cart: Cart = Cart()
 
-  var messageFactory: MessageFactoryImpl? = null
-
   // Hold onto the currently displayed view-model
   var basicViewModel: Any? = null
   var currentViewModel: com.example.mvvmdemo.mvvm.ViewModel? = null
+
+  //region Message factory
+
+  var messageFactory: MessageFactoryImpl? = null
+
+  //endregion
 
 }
 

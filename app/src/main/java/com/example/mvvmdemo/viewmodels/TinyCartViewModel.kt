@@ -15,6 +15,7 @@ class TinyCartViewModel(val cart: Cart): ViewModel(R.layout.tiny_cart_view_model
 
   var onClickedHandler: (() -> Unit)? = null
 
+  //region Details
   init {
     cart.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
       override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
@@ -22,6 +23,7 @@ class TinyCartViewModel(val cart: Cart): ViewModel(R.layout.tiny_cart_view_model
       }
     })
   }
+  //endregion
 
   fun onClicked() {
     onClickedHandler?.invoke()

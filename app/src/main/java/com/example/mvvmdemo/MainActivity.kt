@@ -9,8 +9,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.example.mvvmdemo.messaging.MessageFactoryImpl
-import com.example.mvvmdemo.models.Cart
-import com.example.mvvmdemo.models.Store
 import com.example.mvvmdemo.mvvm.createView
 import com.example.mvvmdemo.viewmodels.BaseProductListViewModel
 import com.example.mvvmdemo.viewmodels.BasicProductsListViewModel
@@ -27,39 +25,40 @@ class MainActivity : AppCompatActivity() {
     setContentView(R.layout.activity_main)
 
     // get the FrameLayout that will hold/contain our (view-model) content
-    val contentFrame = findViewById<FrameLayout>(R.id.content_frame)
+    val frameLayout = findViewById<FrameLayout>(R.id.content_frame)
 
     // ----------------------------------------------------------------------
     // Item 1: Android ViewModel architecture component
     // ----------------------------------------------------------------------
     val state = getActivityState()
 
-    // ----------------------------------------------------------------------
-    // Presenting view-model content
-    // ----------------------------------------------------------------------
+    //region Presenting view-model content
+
     val method = METHOD.FULL
 
     when (method) {
       // ----------------------------------------------------------------------
       // Item 2: Basic Android data binding
       // ----------------------------------------------------------------------
-      METHOD.BASIC -> createAndShowBasicViewModel(state, contentFrame)
+      METHOD.BASIC -> createAndShowBasicViewModel(state, frameLayout)
 
       // ----------------------------------------------------------------------
       // Item 3: Observable view-model class
       // ----------------------------------------------------------------------
-      METHOD.OBSERVABLE -> createAndShowObservableViewModel(state, contentFrame)
+      METHOD.OBSERVABLE -> createAndShowObservableViewModel(state, frameLayout)
 
       // ----------------------------------------------------------------------
       // Item 4: ViewModel base class and binding adapters
       // ----------------------------------------------------------------------
-      METHOD.VIEW_MODEL_BASE_CLASS -> createAndShowBaseClassViewModel(state, contentFrame)
+      METHOD.VIEW_MODEL_BASE_CLASS -> createAndShowBaseClassViewModel(state, frameLayout)
 
       // ----------------------------------------------------------------------
       // Item 5: Recycler view items and nested view-models
       // ----------------------------------------------------------------------
-      METHOD.FULL -> createAndShowProductListViewModel(state, contentFrame)
+      METHOD.FULL -> createAndShowProductListViewModel(state, frameLayout)
     }
+
+    //endregion
   }
 
   //region Item 1: Android ViewModel architecture component
@@ -92,9 +91,7 @@ class MainActivity : AppCompatActivity() {
 
   private fun createAndShowBasicViewModel(state: MainActivityState, frameLayout: FrameLayout) {
     if (state.basicViewModel == null) {
-      state.basicViewModel = BasicProductsListViewModel().apply {
-        title = "Products (Basic)"
-      }
+      state.basicViewModel = BasicProductsListViewModel().apply { title = "Products (Basic)" }
     }
 
     val binding = DataBindingUtil.inflate<ViewDataBinding>(
