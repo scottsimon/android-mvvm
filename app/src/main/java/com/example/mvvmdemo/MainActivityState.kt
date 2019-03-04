@@ -10,21 +10,15 @@ import com.example.mvvmdemo.models.Store
  */
 class MainActivityState : ViewModel() {
 
-  lateinit var store: Store
-  lateinit var cart: Cart
-  lateinit var messageFactory: MessageFactoryImpl
+  val store: Store = Store()
+  val cart: Cart = Cart()
 
-  val isInitialized: Boolean
-      get() = ::store.isInitialized
-
-  fun initialize(store: Store, cart: Cart, messageFactory: MessageFactoryImpl) {
-    this.store = store
-    this.cart = cart
-    this.messageFactory = messageFactory
-  }
+  var messageFactory: MessageFactoryImpl? = null
 
   // Hold onto the currently displayed view-model
   var basicViewModel: Any? = null
   var currentViewModel: com.example.mvvmdemo.mvvm.ViewModel? = null
 
 }
+
+

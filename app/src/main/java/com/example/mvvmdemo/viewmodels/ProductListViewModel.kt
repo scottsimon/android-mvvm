@@ -13,7 +13,7 @@ import com.example.mvvmdemo.mvvm.bindable
 class ProductListViewModel(
   private val store: Store,
   private val cart: Cart,
-  private val messageFactory: MessageFactory
+  private val messageFactory: MessageFactory?
 ) : ViewModel(R.layout.product_list_view_model) {
 
   private val allProductViewModels: List<ProductSummaryViewModel> = createSummaryViewModels()
@@ -26,7 +26,7 @@ class ProductListViewModel(
   val cartViewModel = TinyCartViewModel(cart).apply { onClickedHandler = { showCart() } }
 
   private fun showCart() {
-    messageFactory.showTransientMessage("Cart has ${cart.items.size} items")
+    messageFactory?.showTransientMessage("Cart has ${cart.items.size} items")
     // TODO: show cart screen/view-model
   }
 
@@ -56,14 +56,14 @@ class ProductListViewModel(
   }
 
   private fun showProductDetails(product: Product) {
-    messageFactory.showTransientMessage("Show details for product: ${product.name}")
+    messageFactory?.showTransientMessage("Show details for product: ${product.name}")
     // TODO: show product details screen/view-model
   }
 
   private fun addProductToCart(product: Product) {
     cart.addItem(product)
 
-    messageFactory.showTransientMessage("${product.name} added to cart")
+    messageFactory?.showTransientMessage("${product.name} added to cart")
   }
 
   //endregion

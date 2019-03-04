@@ -71,18 +71,16 @@ class MainActivity : AppCompatActivity() {
   private fun getActivityState(): MainActivityState {
     val mainActivityState = ViewModelProviders.of(this).get(MainActivityState::class.java)
 
-    // If this is the first time the [ViewModel] was created, create and initialize our
-    // application data
-    if (!mainActivityState.isInitialized) {
-      mainActivityState.initialize(
-        Store(),
-        Cart(),
-        createMessageFactory()
-      )
+    //region Message factory
+
+    // Create a message factory if we haven't already
+    if (mainActivityState.messageFactory == null) {
+      mainActivityState.messageFactory = MessageFactoryImpl()
     }
 
-    //region Message factory
-    updateActivityState(mainActivityState)
+    // Give the message factory a reference to the latest Activity
+    mainActivityState.messageFactory?.contextProvider = contextProvider
+
     //endregion
 
     return mainActivityState
@@ -165,22 +163,6 @@ class MainActivity : AppCompatActivity() {
   //endregion
 
   //region Message factory
-
-  private fun createMessageFactory(): MessageFactoryImpl {
-    return MessageFactoryImpl().apply {
-      updateMessageFactory(this)
-    }
-  }
-
-  private fun updateActivityState(state: MainActivityState) {
-    updateMessageFactory(state.messageFactory)
-  }
-
-  private fun updateMessageFactory(messageFactoryImpl: MessageFactoryImpl) {
-    // Update the message factory to use us (the current Activity) as its context
-    // when showing messages
-    messageFactoryImpl.contextProvider = contextProvider
-  }
 
   private val contextProvider: () -> Context? = { this }
 
