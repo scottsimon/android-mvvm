@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
     // Item 1: Android ViewModel architecture component
     // ----------------------------------------------------------------------
     val state = getActivityState()
-    updateActivityState(state)
 
     // ----------------------------------------------------------------------
     // Presenting view-model content
@@ -65,22 +64,28 @@ class MainActivity : AppCompatActivity() {
 
   //region Item 1: Android ViewModel architecture component
 
+  /**
+   * Use the Android [ViewModel] architecture component to hold onto our data/state
+   * across activity lifecycle changes.
+   */
   private fun getActivityState(): MainActivityState {
     val mainActivityState = ViewModelProviders.of(this).get(MainActivityState::class.java)
 
-    // If this is the first time the state was created, create our intial data/models
+    // If this is the first time the [ViewModel] was created, create and initialize our
+    // application data
     if (!mainActivityState.isInitialized) {
-      initActivityState(mainActivityState)
+      mainActivityState.initialize(
+        Store(),
+        Cart(),
+        createMessageFactory()
+      )
     }
 
-    return mainActivityState
-  }
+    //region Message factory
+    updateActivityState(mainActivityState)
+    //endregion
 
-  private fun initActivityState(state: MainActivityState) {
-    val store = Store()
-    val cart = Cart()
-    val messageFactory = createMessageFactory()
-    state.initialize(store, cart, messageFactory)
+    return mainActivityState
   }
 
   //endregion Item 1: Android ViewModel architecture component
@@ -168,17 +173,16 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun updateActivityState(state: MainActivityState) {
-    state.messageFactory?.let {
-      updateMessageFactory(it)
-    }
+    updateMessageFactory(state.messageFactory)
+  }
+
+  private fun updateMessageFactory(messageFactoryImpl: MessageFactoryImpl) {
+    // Update the message factory to use us (the current Activity) as its context
+    // when showing messages
+    messageFactoryImpl.contextProvider = contextProvider
   }
 
   private val contextProvider: () -> Context? = { this }
-
-  private fun updateMessageFactory(messageFactoryImpl: MessageFactoryImpl) {
-    // Update the message factory to use us (the current Activity) as its context when showing messages
-    messageFactoryImpl.contextProvider = contextProvider
-  }
 
   //endregion Message factory
 

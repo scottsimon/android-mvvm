@@ -21,18 +21,21 @@ class ProductListViewModel(
   @get:Bindable
   var title: String? by bindable(BR.title, null)
 
-  @get:Bindable
-  var filterText: String? by bindable(BR.filterText, "", this::onFilterTextChanged)
+  //region Nested view-model
 
   val cartViewModel = TinyCartViewModel(cart).apply { onClickedHandler = { showCart() } }
-
-  @get:Bindable
-  var productViewModels: List<ProductSummaryViewModel> by bindable(BR.productViewModels, allProductViewModels)
 
   private fun showCart() {
     messageFactory.showTransientMessage("Cart has ${cart.items.size} items")
     // TODO: show cart screen/view-model
   }
+
+  //endregion
+
+  //region Recycler view items
+
+  @get:Bindable
+  var productViewModels: List<ProductSummaryViewModel> by bindable(BR.productViewModels, allProductViewModels)
 
   private fun createSummaryViewModels(): List<ProductSummaryViewModel> {
     return store.products.map { product ->
@@ -52,8 +55,6 @@ class ProductListViewModel(
     }
   }
 
-  //region Product summary handlers
-
   private fun showProductDetails(product: Product) {
     messageFactory.showTransientMessage("Show details for product: ${product.name}")
     // TODO: show product details screen/view-model
@@ -69,6 +70,9 @@ class ProductListViewModel(
 
   //region Filtering
 
+  @get:Bindable
+  var filterText: String? by bindable(BR.filterText, "", this::onFilterTextChanged)
+
   private fun onFilterTextChanged(oldValue: String?, newValue: String?) {
     productViewModels = filterProducts(newValue)
   }
@@ -82,7 +86,6 @@ class ProductListViewModel(
   }
 
   //endregion
-
 
 }
 
