@@ -5,7 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools" >
 
   <data>
-    <variable name="viewModel" type="com.example.mvvmdemo.viewmodels.ProductSummaryViewModel" />
+    <variable
+        name="viewModel"
+        type="com.example.mvvmdemo.viewmodels.ProductSummaryViewModel"
+    />
   </data>
 
   <LinearLayout

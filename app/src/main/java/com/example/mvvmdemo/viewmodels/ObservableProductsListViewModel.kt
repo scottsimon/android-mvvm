@@ -27,7 +27,9 @@ class ObservableProductsListViewModel: BaseObservable() {
   fun onCartClicked() {
     logDebug("onCartClicked! filter text=$filterText")
 
-    title = filterText // NOTE: now the view gets updated
+    // Note: Changing the title here is an artificial example, purely to illustrate that modifying
+    // the title property updates the UI
+    title = filterText
   }
 
 }

@@ -10,6 +10,7 @@ import com.example.mvvmdemo.mvvm.bindable
 /**
  * View-model class that inherits from our [ViewModel] base class.
  *
+ * Goals:
  * - Simplify boiler-plate to create/bind view via BindingAdapters.createView()
  * - Simplify boiler-plate code for observable properies with 'by bindable' ([BindableProperty])
  */
@@ -23,8 +24,6 @@ class BaseProductListViewModel : ViewModel(R.layout.base_product_list_view_model
 
   fun onCartClicked() {
     logDebug("onCartClicked! filter text=$filterText")
-
-    title = filterText // NOTE: now the view gets updated
   }
 
 }

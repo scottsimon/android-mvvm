@@ -129,7 +129,9 @@ class MainActivity : AppCompatActivity() {
       false
     )
     binding.setVariable(BR.viewModel, state.basicViewModel)
+    //region Details
     binding.executePendingBindings()
+    //endregion
 
     frameLayout.addView(binding.root)
   }

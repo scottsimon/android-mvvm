@@ -5,7 +5,10 @@
 >
 
   <data>
-    <variable name="viewModel" type="com.example.mvvmdemo.viewmodels.TinyCartViewModel" />
+    <variable
+        name="viewModel"
+        type="com.example.mvvmdemo.viewmodels.TinyCartViewModel"
+    />
   </data>
 
   <FrameLayout
